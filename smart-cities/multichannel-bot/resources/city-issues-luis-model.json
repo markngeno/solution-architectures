@@ -1,0 +1,89 @@
+{
+  "luis_schema_version": "3.2.0",
+  "versionId": "0.2",
+  "name": "sc-multichannel-bot-8531",
+  "desc": "A BotBuilder generated bot",
+  "culture": "en-us",
+  "tokenizerVersion": "1.0.0",
+  "intents": [
+    {
+      "name": "AreThereElectricalIssues"
+    },
+    {
+      "name": "IsThereBrokenGlass"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "WhatCanYouDo"
+    }
+  ],
+  "entities": [
+    {
+      "name": "userLocation",
+      "roles": []
+    },
+    {
+      "name": "userName",
+      "roles": []
+    }
+  ],
+  "composites": [],
+  "closedLists": [],
+  "patternAnyEntities": [
+    {
+      "name": "userLocation_patternAny",
+      "roles": [],
+      "explicitList": []
+    },
+    {
+      "name": "userName_patternAny",
+      "roles": [],
+      "explicitList": []
+    }
+  ],
+  "regex_entities": [],
+  "prebuiltEntities": [],
+  "model_features": [],
+  "regex_features": [],
+  "patterns": [],
+  "utterances": [
+    {
+      "text": "are there any apparent electrical issues?",
+      "intent": "AreThereElectricalIssues",
+      "entities": []
+    },
+    {
+      "text": "are there electrical issues?",
+      "intent": "AreThereElectricalIssues",
+      "entities": []
+    },
+    {
+      "text": "broken glass on the sidewalk?",
+      "intent": "IsThereBrokenGlass",
+      "entities": []
+    },
+    {
+      "text": "electrical issues?",
+      "intent": "AreThereElectricalIssues",
+      "entities": []
+    },
+    {
+      "text": "is there a broken glass on the sidewalk?",
+      "intent": "IsThereBrokenGlass",
+      "entities": []
+    },
+    {
+      "text": "is there any broken glass on the sidewalk?",
+      "intent": "IsThereBrokenGlass",
+      "entities": []
+    },
+    {
+      "text": "what can you do?",
+      "intent": "WhatCanYouDo",
+      "entities": []
+    }
+  ],
+  "settings": []
+}

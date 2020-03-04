@@ -1,0 +1,59 @@
+{
+  "luis_schema_version": "3.2.0",
+  "versionId": "0.2",
+  "name": "rennovations-bot",
+  "desc": "",
+  "culture": "en-us",
+  "tokenizerVersion": "1.0.0",
+  "intents": [
+    {
+      "name": "GetRidOfTheFridge"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "RemodelKitchen"
+    },
+    {
+      "name": "WhatCanYouDo"
+    }
+  ],
+  "entities": [],
+  "composites": [],
+  "closedLists": [],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [
+    {
+      "name": "datetimeV2",
+      "roles": []
+    }
+  ],
+  "model_features": [],
+  "regex_features": [],
+  "patterns": [],
+  "utterances": [
+    {
+      "text": "i have a fridge i need to get rid of next friday",
+      "intent": "GetRidOfTheFridge",
+      "entities": []
+    },
+    {
+      "text": "i want to remodel my kitchen",
+      "intent": "RemodelKitchen",
+      "entities": []
+    },
+    {
+      "text": "tell me what you can do",
+      "intent": "WhatCanYouDo",
+      "entities": []
+    },
+    {
+      "text": "what can you dou",
+      "intent": "WhatCanYouDo",
+      "entities": []
+    }
+  ],
+  "settings": []
+}
