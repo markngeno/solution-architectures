@@ -1,0 +1,39 @@
+{
+  "name": "renovations",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "copyfiles": "^2.1.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^1.1.2",
+    "prettier": "^1.14.3",
+    "pretty-quick": "^1.8.0",
+    "react-scripts": "2.0.5"
+  },
+  "dependencies": {
+    "botframework-webchat": "4.1.0",
+    "adaptivecards": "1.0.0",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-redux": "^5.1.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "styled-components": "^4.0.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "copyfiles": "copyfiles -u 1 build/**/*"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
