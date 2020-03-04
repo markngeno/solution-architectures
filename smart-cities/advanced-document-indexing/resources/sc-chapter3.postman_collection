@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "5fb65a3c-10c6-4d50-a14b-faf63469e29d",
+		"name": "sc-chapter-3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Skillset",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{searchServiceKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://sc-chapter3-pipeline-{{yourInitials}}.search.windows.net/skillsets/sc-chapter3-skillset-{{yourInitials}}?api-version=2017-11-11-Preview",
+					"protocol": "https",
+					"host": [
+						"sc-chapter3-pipeline-{{yourInitials}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"skillsets",
+						"sc-chapter3-skillset-{{yourInitials}}"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2017-11-11-Preview"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Skillset",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{searchServiceKey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"basic skillset\",\n    \"skills\": [\n        {\n            \"@odata.type\": \"#Microsoft.Skills.Text.EntityRecognitionSkill\",\n            \"description\": null,\n            \"context\": \"/document\",\n            \"categories\": [\n                \"Person\",\n                \"Organization\",\n                \"Location\",\n                \"DateTime\"\n            ],\n            \"defaultLanguageCode\": \"en\",\n            \"minimumPrecision\": null,\n            \"includeTypelessEntities\": null,\n            \"inputs\": [\n                {\n                    \"name\": \"text\",\n                    \"source\": \"/document/content\"\n                },\n                {\n                    \"name\": \"languageCode\",\n                    \"source\": \"/document/language\"\n                }\n            ],\n            \"outputs\": [\n                {\n                    \"name\": \"persons\",\n                    \"targetName\": \"people\"\n                },\n                {\n                    \"name\": \"organizations\",\n                    \"targetName\": \"organizations\"\n                },\n                {\n                    \"name\": \"locations\",\n                    \"targetName\": \"locations\"\n                },\n\t            {\n\t                \"name\": \"entities\",\n\t                \"targetName\": \"entities\"\n\t            }\n            ]\n        },\n        {\n            \"@odata.type\": \"#Microsoft.Skills.Text.LanguageDetectionSkill\",\n            \"description\": null,\n            \"context\": \"/document\",\n            \"inputs\": [\n                {\n                    \"name\": \"text\",\n                    \"source\": \"/document/content\"\n                }\n            ],\n            \"outputs\": [\n                {\n                    \"name\": \"languageCode\",\n                    \"targetName\": \"language\"\n                }\n            ]\n        },\n        {\n\t\t    \"@odata.type\": \"#Microsoft.Skills.Text.SentimentSkill\",\n\t\t    \"inputs\": [\n\t\t        {\n\t\t            \"name\": \"text\",\n\t\t            \"source\": \"/document/content\"\n\t\t        },\n\t\t        {\n\t\t            \"name\": \"languageCode\",\n\t\t            \"source\": \"/document/language\"\n\t\t        }\n\t\t    ],\n\t\t    \"outputs\": [\n\t\t        {\n\t\t            \"name\": \"score\",\n\t\t            \"targetName\": \"sentiment\"\n\t\t        }\n\t\t    ]\n\t\t},\n        {\n            \"@odata.type\": \"#Microsoft.Skills.Vision.ImageAnalysisSkill\",\n            \"description\": null,\n            \"context\": \"/document/normalized_images/*\",\n            \"defaultLanguageCode\": \"en\",\n            \"visualFeatures\": [\n                \"Tags\",\n\t\t        \"Categories\",\n\t\t        \"Description\",\n\t\t        \"ImageType\",\n\t\t        \"Color\"\n            ],\n            \"details\": [\n            ],\n            \"inputs\": [\n                {\n                    \"name\": \"image\",\n                    \"source\": \"/document/normalized_images/*\"\n                }\n            ],\n            \"outputs\": [\n                {\n                    \"name\": \"tags\",\n                    \"targetName\": \"imageTags\"\n                },\n                {\n                    \"name\": \"description\",\n                    \"targetName\": \"imageCaption\"\n                },\n                {\n                    \"name\": \"categories\",\n                    \"targetName\": \"categories\"\n                }\n            ]\n        },\n        {\n            \"@odata.type\": \"#Microsoft.Skills.Custom.WebApiSkill\",\n            \"description\": \"Our translator custom skill\",\n            \"context\": \"/document\",\n            \"uri\": \"<azure-function-url>/api/Translate?code=<function-host-key>\",\n            \"httpMethod\": \"POST\",\n            \"timeout\": \"PT30S\",\n            \"batchSize\": 1000,\n            \"inputs\": [\n                {\n                    \"name\": \"text\",\n                    \"source\": \"/document/content\"\n                },\n                {\n                    \"name\": \"language\",\n                    \"source\": \"/document/language\"\n                }\n            ],\n            \"outputs\": [\n                {\n                    \"name\": \"translation\",\n                    \"targetName\": \"translation\"\n                }\n            ]\n        }\n    ],\n    \"cognitiveServices\": null\n}"
+				},
+				"url": {
+					"raw": "https://sc-chapter3-pipeline-{{yourInitials}}.search.windows.net/skillsets/sc-chapter3-skillset-{{yourInitials}}?api-version=2017-11-11-Preview",
+					"protocol": "https",
+					"host": [
+						"sc-chapter3-pipeline-{{yourInitials}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"skillsets",
+						"sc-chapter3-skillset-{{yourInitials}}"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2017-11-11-Preview"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Index",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "api-key",
+						"type": "text",
+						"value": "{{searchServiceKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"defaultScoringProfile\": \"\",\n    \"fields\": [\n        {\n            \"name\": \"content\",\n            \"type\": \"Edm.String\",\n            \"searchable\": true,\n            \"filterable\": false,\n            \"retrievable\": true,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": \"standard.lucene\",\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"metadata_storage_content_type\",\n            \"type\": \"Edm.String\",\n            \"searchable\": false,\n            \"filterable\": false,\n            \"retrievable\": false,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"metadata_storage_size\",\n            \"type\": \"Edm.Int64\",\n            \"searchable\": false,\n            \"filterable\": false,\n            \"retrievable\": false,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"metadata_storage_last_modified\",\n            \"type\": \"Edm.DateTimeOffset\",\n            \"searchable\": false,\n            \"filterable\": false,\n            \"retrievable\": false,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"metadata_storage_name\",\n            \"type\": \"Edm.String\",\n            \"searchable\": false,\n            \"filterable\": false,\n            \"retrievable\": false,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"metadata_storage_path\",\n            \"type\": \"Edm.String\",\n            \"searchable\": false,\n            \"filterable\": false,\n            \"retrievable\": true,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": true,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"metadata_content_type\",\n            \"type\": \"Edm.String\",\n            \"searchable\": false,\n            \"filterable\": false,\n            \"retrievable\": false,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"metadata_language\",\n            \"type\": \"Edm.String\",\n            \"searchable\": false,\n            \"filterable\": false,\n            \"retrievable\": false,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"metadata_author\",\n            \"type\": \"Edm.String\",\n            \"searchable\": false,\n            \"filterable\": false,\n            \"retrievable\": false,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"metadata_title\",\n            \"type\": \"Edm.String\",\n            \"searchable\": false,\n            \"filterable\": false,\n            \"retrievable\": false,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"people\",\n            \"type\": \"Collection(Edm.String)\",\n            \"searchable\": true,\n            \"filterable\": false,\n            \"retrievable\": true,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"organizations\",\n            \"type\": \"Collection(Edm.String)\",\n            \"searchable\": true,\n            \"filterable\": false,\n            \"retrievable\": true,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"locations\",\n            \"type\": \"Collection(Edm.String)\",\n            \"searchable\": true,\n            \"filterable\": false,\n            \"retrievable\": true,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"language\",\n            \"type\": \"Edm.String\",\n            \"searchable\": true,\n            \"filterable\": false,\n            \"retrievable\": true,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n\t    {\n\t      \"name\": \"entities\",\n\t      \"type\": \"Collection(Edm.String)\",\n\t      \"searchable\": true,\n\t      \"filterable\": false,\n\t      \"retrievable\": true,\n\t      \"sortable\": false,\n\t      \"facetable\": false,\n\t      \"key\": false,\n\t      \"indexAnalyzer\": null,\n\t      \"searchAnalyzer\": null,\n\t      \"analyzer\": \"standard.lucene\",\n\t      \"synonymMaps\": []\n\t    },\n        {\n\t\t    \"name\": \"translation\",\n\t\t    \"type\": \"Edm.String\",\n\t\t    \"searchable\": true,\n            \"filterable\": false,\n            \"retrievable\": true,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n\t\t},\n\t    {\n\t      \"name\": \"sentiment\",\n\t      \"type\": \"Edm.Double\",\n\t      \"searchable\": false,\n\t      \"filterable\": false,\n\t      \"retrievable\": true,\n\t      \"sortable\": false,\n\t      \"facetable\": false,\n\t      \"key\": false,\n\t      \"indexAnalyzer\": null,\n\t      \"searchAnalyzer\": null,\n\t      \"analyzer\": null,\n\t      \"synonymMaps\": []\n\t    },\n        {\n            \"name\": \"imageCategories\",\n            \"type\": \"Collection(Edm.String)\",\n            \"searchable\": true,\n            \"filterable\": false,\n            \"retrievable\": true,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"imageTags\",\n            \"type\": \"Collection(Edm.String)\",\n            \"searchable\": true,\n            \"filterable\": false,\n            \"retrievable\": true,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        },\n        {\n            \"name\": \"imageCaption\",\n            \"type\": \"Collection(Edm.String)\",\n            \"searchable\": true,\n            \"filterable\": false,\n            \"retrievable\": true,\n            \"sortable\": false,\n            \"facetable\": false,\n            \"key\": false,\n            \"indexAnalyzer\": null,\n            \"searchAnalyzer\": null,\n            \"analyzer\": null,\n            \"synonymMaps\": []\n        }\n\t\t\n    ],\n    \"scoringProfiles\": [],\n    \"corsOptions\": null,\n    \"suggesters\": [],\n    \"analyzers\": [],\n    \"tokenizers\": [],\n    \"tokenFilters\": [],\n    \"charFilters\": []\n}"
+				},
+				"url": {
+					"raw": "https://sc-chapter3-pipeline-{{yourInitials}}.search.windows.net/indexes/sc-chapter3-index-{{yourInitials}}?api-version=2017-11-11-Preview",
+					"protocol": "https",
+					"host": [
+						"sc-chapter3-pipeline-{{yourInitials}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"sc-chapter3-index-{{yourInitials}}"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2017-11-11-Preview"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Indexer",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "api-key",
+						"type": "text",
+						"value": "{{searchServiceKey}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": null,\n    \"dataSourceName\": \"sc-chapter3-ds-{{yourInitials}}\",\n    \"skillsetName\": \"sc-chapter3-skillset-{{yourInitials}}\",\n    \"targetIndexName\": \"sc-chapter3-index-{{yourInitials}}\",\n    \"disabled\": null,\n    \"schedule\": {\n        \"interval\": \"PT1H\",\n        \"startTime\": \"0001-01-01T00:00:00Z\"\n    },\n    \"parameters\": {\n        \"batchSize\": null,\n        \"maxFailedItems\": null,\n        \"maxFailedItemsPerBatch\": null,\n        \"base64EncodeKeys\": false,\n        \"configuration\": {\n            \"dataToExtract\": \"contentAndMetadata\",\n            \"imageAction\": \"generateNormalizedImages\"\n        }\n    },\n    \"fieldMappings\": [\n        {\n            \"sourceFieldName\": \"metadata_storage_path\",\n            \"targetFieldName\": \"metadata_storage_path\",\n            \"mappingFunction\": {\n                \"name\": \"base64Encode\",\n                \"parameters\": null\n            }\n        }\n    ],\n    \"outputFieldMappings\": [\n        {\n            \"sourceFieldName\": \"/document/people\",\n            \"targetFieldName\": \"people\",\n            \"mappingFunction\": null\n        },\n        {\n            \"sourceFieldName\": \"/document/organizations\",\n            \"targetFieldName\": \"organizations\",\n            \"mappingFunction\": null\n        },\n        {\n            \"sourceFieldName\": \"/document/locations\",\n            \"targetFieldName\": \"locations\",\n            \"mappingFunction\": null\n        },\n        {\n            \"sourceFieldName\": \"/document/entities\",\n            \"targetFieldName\": \"entities\",\n            \"mappingFunction\": null\n        },\n        {\n            \"sourceFieldName\": \"/document/language\",\n            \"targetFieldName\": \"language\",\n            \"mappingFunction\": null\n        },\n        {\n            \"sourceFieldName\": \"/document/translation\",\n            \"targetFieldName\": \"translation\",\n            \"mappingFunction\": null\n        },\n        {\n            \"sourceFieldName\": \"/document/sentiment\",\n            \"targetFieldName\": \"sentiment\",\n            \"mappingFunction\": null\n        },\n        {\n            \"sourceFieldName\": \"/document/normalized_images/*/imageTags/*/name\",\n            \"targetFieldName\": \"imageTags\",\n            \"mappingFunction\": null\n        },\n        {\n            \"sourceFieldName\": \"/document/normalized_images/*/categories/*/name\",\n            \"targetFieldName\": \"imageCategories\",\n            \"mappingFunction\": null\n        },\n        {\n            \"sourceFieldName\": \"/document/normalized_images/*/imageCaption/*/captions\",\n            \"targetFieldName\": \"imageCaption\",\n            \"mappingFunction\": null\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "https://sc-chapter3-pipeline-{{yourInitials}}.search.windows.net/indexers/sc-chapter3-indexer-{{yourInitials}}?api-version=2017-11-11-Preview",
+					"protocol": "https",
+					"host": [
+						"sc-chapter3-pipeline-{{yourInitials}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexers",
+						"sc-chapter3-indexer-{{yourInitials}}"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2017-11-11-Preview"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
