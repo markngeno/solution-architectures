@@ -104,7 +104,7 @@ Just to make it easier to compare with prior art in this space, here is a list o
   * Adaptive Cards from a template on disk (multi-channel bot)
   * Channel-specific responses (multi-channel bot)
 * Azure App Services
-  * Bot API Host (rennovations bot)
+  * Bot API Host (rennovations bot, multi-channel bot)
   * SPA Host (rennovations bot, multi-channel bot)
     * React app (rennovations bot)
       * Custom UI elements for web chat (rennovations bot)
